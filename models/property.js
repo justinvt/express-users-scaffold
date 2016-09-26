@@ -1,11 +1,16 @@
 var mongoose   = require('mongoose');
 
 var PropertySchema   = new mongoose.Schema({
-    address: {type: String, required:true, unique: true},
+    street: {type: String, required:true, unique: true},
+    zip: String,
+    state: String,
+    city: String,
     owner: String,
     address: String,
-    logo: String
+    logo: String,
+    zpid: String
+
 });
 
 
-module.exports = mongoose.model('School', SchoolSchema);
+module.exports = mongoose.model('Property', PropertySchema);

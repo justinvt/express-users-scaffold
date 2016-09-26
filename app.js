@@ -11,7 +11,7 @@ var fs = require('fs');
 var request = require('request');
 var cheerio = require('cheerio');
 
-var upload = multer(); 
+var config = require('./config');
 
 var mongoose   = require('mongoose');
 mongoose.connect('mongodb://justinvt:asdfg@ds035806.mlab.com:35806/godbutt'); // connect to our database
@@ -26,9 +26,14 @@ app.set('view engine', 'pug');
 var basic_routes = require('./controllers/index');
 var users = require('./controllers/users');
 var schools = require('./controllers/schools');
+var properties = require('./controllers/properties');
+
 //routes
 app.use('/users', users);
 app.use('/schools', schools);
+app.use('/properties', properties);
+
+
 app.use('/', basic_routes);
 
 // uncomment after placing your favicon in /public
@@ -38,7 +43,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(upload.array());
+
 
 // catch 404 and forward to error handler
 

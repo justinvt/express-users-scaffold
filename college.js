@@ -13,20 +13,7 @@ var cheerio = require('cheerio');
 
 var upload = multer(); 
 
-var mongoose   = require('mongoose');
-mongoose.connect('mongodb://justinvt:asdfg@ds035806.mlab.com:35806/godbutt'); // connect to our database
 
-var SchoolSchema   = new mongoose.Schema({
-    name: {type: String, required:true, unique: true},
-    url: String,
-    address: String,
-    coordinates: String,
-    latitude: String,
-    longitude: String,
-    logo: String
-});
-
-var School = module.exports = mongoose.model('School', SchoolSchema);
 
 var letters = ["a","b","c","d","e","f","g",'h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
 
