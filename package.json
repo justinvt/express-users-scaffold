@@ -3,18 +3,23 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "sudo nodemon ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.15.1",
+    "cheerio": "^0.22.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
     "express": "~4.13.4",
-    "pug":"*",
+    "mongoose": "3.8.23",
+    "mongoose-findorcreate": "^0.1.2",
     "morgan": "~1.7.0",
-    "serve-favicon": "~2.3.0",
-    "mongoose":"3.8.23",
-    "multer":"*"
+    "multer": "*",
+    "node-phantom": "^0.2.5",
+    "nodemon": "*",
+    "phantom": "^2.1.21",
+    "pug": "*",
+    "serve-favicon": "~2.3.0"
   },
   "main": "app.js",
   "devDependencies": {},

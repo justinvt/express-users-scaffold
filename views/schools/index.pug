@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1 Schools
+  table
+    each school in schools
+      - var school_url = "/schools/" + school.id
+      tr.school(id="school_" + school.id)
+        td.name
+          a(href="/schools/" + school.id)= school.name
+        td.img
+          img("src"=school.logo)
+        td.latitude= school.latitude
+        td.longitude= school.longitude
