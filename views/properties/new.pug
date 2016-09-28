@@ -2,11 +2,16 @@ extends layout
 
 
 block content
-  form(action="/search", method="POST", enctype="multipart/form-data")
+  div=f
+
+  form(action="/properties/new", method="GET", enctype="multipart/form-data")
     field
       label Street
-      input(name='street')
+      input(name='street',value=property.street, type="text")
     field
-      label zip
-      input(name='zip')
-    button(type='submit', value="submit")
+      label City State / Zip
+      input(name='citystatezip', type="text", value=property.citystatezip)
+    input(type="submit")
+
+  input(value=property.zpid)
+  

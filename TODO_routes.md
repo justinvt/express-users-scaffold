@@ -23,3 +23,6 @@ Property
   - create (POST user)
   - zillow info
     
+
+
+http://timjrobinson.com/how-to-structure-your-nodejs-models-2/

@@ -14,7 +14,7 @@ var cheerio = require('cheerio');
 var config = require('./config');
 
 var mongoose   = require('mongoose');
-mongoose.connect('mongodb://justinvt:asdfg@ds035806.mlab.com:35806/godbutt'); // connect to our database
+mongoose.connect(config.mongo.connection); // connect to our database
 
 // Use native Node promises
 //mongoose.Promise = global.Promise;
