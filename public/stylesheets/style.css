@@ -18,4 +18,19 @@ a {
 	;}
 
 td{height:200px;width:200px;}
+
+body{height:100%;}
+.left_side, .right_side{width:50%;height:600px;float:left;background:red;}
+.right_side{background:blue;}
+.door{
+	background:grey;
+	width:100px;
+	height:30%;
+	margin-bottom:auto;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:100px;
+	position:relative;
+}
+
 .

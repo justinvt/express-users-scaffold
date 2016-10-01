@@ -3,14 +3,19 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "sudo nodemon ./bin/www"
+    "start": "sudo DEBUG=express:* nodemon ./bin/www"
   },
   "dependencies": {
+    "bcrypt-nodejs": "*",
     "body-parser": "~1.15.1",
     "cheerio": "^0.22.0",
+    "connect-flash": "*",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
     "express": "~4.13.4",
+    "express-session": "*",
+    "geocoder": "^0.2.2",
+    "googlemaps": "^1.11.1",
     "lodash": "^4.16.2",
     "mongoose": "3.8.23",
     "mongoose-findorcreate": "^0.1.2",
@@ -19,9 +24,14 @@
     "node-phantom": "^0.2.5",
     "node-zillow": "^1.0.1",
     "nodemon": "*",
+    "passport": "0.3.2",
+    "passport-http": "^0.3.0",
+    "passport-local": "~1.0.0",
+    "passport-userapp": "^1.1.2",
     "phantom": "^2.1.21",
-    "pug": "*",
-    "serve-favicon": "~2.3.0"
+    "pug": "~2.0.0-beta6",
+    "serve-favicon": "~2.3.0",
+    "static-favicon": "^2.0.0-alpha"
   },
   "main": "app.js",
   "devDependencies": {},

@@ -1,0 +1,7 @@
+form(action="/properties/new", method="GET", enctype="multipart/form-data")
+	each field_name in "street city state zip".split(/[ ]+/)
+		field
+			label= field_name
+			input(name='street',value=property[field_name], type='text')
+	input(type="submit")
+input(value=property.zpid)

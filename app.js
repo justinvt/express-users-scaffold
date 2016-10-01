@@ -1,29 +1,35 @@
-var express = require('express');
-var app = express();
+var express = require('express'),
+    http = require('http'),
+    passport = require('passport'),
+    flash = require('connect-flash'),
+    _ = require('underscore'),
+    UserApp = require('userapp'),
+    UserAppStrategy = require('passport-userapp').Strategy,
+    config = require('./config')
+
 
 var path = require('path');
-var favicon = require('serve-favicon');
+var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var multer = require('multer');
+
 var fs = require('fs');
 var request = require('request');
 var cheerio = require('cheerio');
 
-var config = require('./config');
-
 var mongoose   = require('mongoose');
 mongoose.connect(config.mongo.connection); // connect to our database
 
-// Use native Node promises
-//mongoose.Promise = global.Promise;
+
+var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-var basic_routes = require('./controllers/index');
+var index_routes = require('./controllers/index');
 var users = require('./controllers/users');
 var schools = require('./controllers/schools');
 var properties = require('./controllers/properties');
@@ -33,22 +39,23 @@ app.use('/users', users);
 app.use('/schools', schools);
 app.use('/properties', properties);
 
+app.use('/',  index_routes);
+ // Using the flash middleware provided by connect-flash to store messages in session
+ // and displaying in templates
 
-app.use('/', basic_routes);
+app.use(flash());
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
+app.use(favicon());
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-
 // catch 404 and forward to error handler
 
 app.use(function(req, res, next) {
-      console.log(req.params);
+  console.log(req.params);
   var err = new Error('Not Found');
   err.status = 404;
   next(err);

@@ -10,8 +10,9 @@ router.route('/new')
 
   .get(function(req,res,next){
     
-    var School = new School;
-    res.render('schools/new', { school: school });
+  //  var School = new School;
+    res.render('schools/new');
+    //res.render("school.html")
     
   })
 
@@ -22,6 +23,8 @@ router.route('/')
   .get(function(req, res, next) {
     console.log(req.params);
     School.find({},null,{sort:{name:1}},function(err, schools) {
+      res.json(schools);
+      /*
       if (err) return res.send(err);
       res.format({
         html: function(){
@@ -34,6 +37,7 @@ router.route('/')
           res.json(School);
         }
       });
+      */
     })
     
   })
