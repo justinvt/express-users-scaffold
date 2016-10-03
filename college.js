@@ -9,12 +9,14 @@ var bodyParser = require('body-parser');
 var multer = require('multer');
 var fs = require('fs');
 var request = require('request');
-var cheerio = require('cheerio');
+var cheerio = require('cheerio'); 
+var geocoder = require("geocoder");
+var _ = require("lodash")
 
 var upload = multer(); 
 
 
-
+var config = require('./config');
 var letters = ["a","b","c","d","e","f","g",'h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
 
 var schools = [];
@@ -23,8 +25,69 @@ var data, url;
 
 console.log(letters);
 var scrape_names = false;
-var scrape_details =1;
+var scrape_details =0;
 var get_address =  0;
+var reverse_geocode = 1;
+
+
+
+
+var mongoose   = require('mongoose');
+mongoose.connect(config.mongo.connection); // connect to our database
+var School = require('./models/school.js')
+
+// reverse geocode API
+
+
+if(reverse_geocode){
+   School.find(function(err, schools) {
+        schools.forEach(function(school, index){
+
+  
+
+/*
+            gmAPI.reverseGeocode(reverseGeocodeParams, function(err, result){
+              console.log(result);
+            });
+
+   
+          */
+              console.log(school.name)
+              if(school.coordinates === undefined){
+
+              }
+              else{
+                var coords = school.coordinates.split(/[^-0-9\.]+/gi)
+                  geocoder.reverseGeocode( parseFloat(coords[0]), parseFloat(coords[1]), function ( err, data ) {
+                    if(err) return 
+                    var add = data.results[0].address_components
+  
+                   school.zip =  _.filter(add, function(f) { return f.types[0] == "postal_code"})[0].long_name;
+                 
+                   school.save(
+                    function(err) {
+                     if (err) throw err;
+                     console.log(school)
+                   })
+                    
+                  }, 
+                  { 
+                    language: 'en',
+                     key: config.google.maps_api_key
+                   });
+
+              }
+          
+              //console.log("Address" + school.address);
+              //console.log('School successfully updated!');
+          });
+
+        })
+
+return;
+
+}
+
 
 if(scrape_names){
 
@@ -137,5 +200,3 @@ if(get_address){
 }
 
 
-
- 

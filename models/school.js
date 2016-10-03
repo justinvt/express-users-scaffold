@@ -7,7 +7,13 @@ var SchoolSchema   = new mongoose.Schema({
     latitude: String,
     longitude: String,
     logo: String,
-    zip: String
+    street: String,
+    city: String,
+    state: String,
+    country: String,
+    county:String,
+    zip: String,
+    coordinates: String
 });
 
 SchoolSchema.methods.find
