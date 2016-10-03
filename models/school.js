@@ -16,10 +16,20 @@ var SchoolSchema   = new mongoose.Schema({
     coordinates: String
 });
 
-SchoolSchema.methods.find
+
+SchoolSchema.important = {
+      logo:  {
+        $exists: true,
+        $not: /Wikidata/
+       },
+      zip:{
+        $exists: true
+      }
+  }
 
 
 // Keep this at bottom?
 var School = mongoose.model('School', SchoolSchema);
+School.findLegit = School.find(School.schema.important)
 
 module.exports = School;
