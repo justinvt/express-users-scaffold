@@ -1,0 +1,7 @@
+form(action="/users/post")
+	- var user_fields = "name first_name last_name email"
+	each field_name in user_fields.split(/[ ]+/)
+		field
+			label= field_name
+			input(name=field_name,value=user[field_name], type='text')
+	input(type="submit")

@@ -1,17 +1,4 @@
 extends layout
 
-
 block content
-  div=f
-
-  form(action="/properties/new", method="GET", enctype="multipart/form-data")
-    field
-      label Street
-      input(name='street',value=property.street, type="text")
-    field
-      label City State / Zip
-      input(name='citystatezip', type="text", value=property.citystatezip)
-    input(type="submit")
-
-  input(value=property.zpid)
-  
+  include ./partials/_form
