@@ -3,12 +3,12 @@ extends layout
 block content
   h1 Schools
   table
+    tr
+      th Name
+      th Logo
+      th zip
+      th lon
+      th lat
     each school in schools
       - var school_url = "/schools/" + school.id
-      tr.school(id="school_" + school.id)
-        td.name
-          a(href="/schools/" + school.id)= school.name
-        td.latitude= school.latitude
-        td.longitude= school.longitude
-        td.zip= school.ziplagn0NEPH
-        
+      include ./_school

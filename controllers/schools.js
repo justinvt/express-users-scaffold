@@ -17,13 +17,21 @@ router.route('/new')
   })
 
 
-router.route('/')
+router.route('/.:format?')
 
   // List records
   .get(function(req, res, next) {
     console.log(req.params);
-    School.find({},null,{sort:{name:1}},function(err, schools) {
-      res.json(schools);
+
+    School.find({
+      logo:  {
+        $exists: true,
+        $not: /Wikidata/
+       }},null,{sort:{name:1}},function(err, schools) {
+      if(req.query.format === 'html')
+        res.render('schools/index', { schools: schools });
+      else
+        res.json(schools)
       /*
       if (err) return res.send(err);
       res.format({

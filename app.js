@@ -61,6 +61,49 @@ app.use(function(req, res, next) {
   next(err);
 });
 
+
+var users = [];
+var appId = '57f0342c75e1f'; // Your UserApp App Id: https://help.userapp.io/customer/portal/articles/1322336-how-do-i-find-my-app-id-
+
+// Don't for get to init UserApp
+UserApp.initialize({ appId: appId });
+
+// Passport session setup
+passport.serializeUser(function (user, done) {
+    done(null, user.username);
+});
+
+passport.deserializeUser(function (username, done) {
+    var user = _.find(users, function (user) {
+        return user.username == username;
+    });
+    if (user === undefined) {
+        done(new Error('No user with username "' + username + '" found.'));
+    } else {
+        done(null, user);
+    }
+});
+
+// Use the UserAppStrategy within Passport
+passport.use(
+    new UserAppStrategy({
+        appId: appId,
+       passReqToCallback : true
+    },
+    function (userprofile, done) {
+        process.nextTick(function () {
+            var exists = _.any(users, function (user) {
+                return user.id == userprofile.id;
+            });
+            
+            if (!exists) {
+                users.push(userprofile);
+            }
+
+            return done(null, userprofile);
+        });
+    }
+));
 // error handlers
 
 // development error handler
