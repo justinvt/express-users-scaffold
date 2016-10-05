@@ -5,9 +5,6 @@ var config = require('../config');
 var mongoose = require('mongoose');
 
 
-
-
-
 router.route('/')
   .get(function(req, res, next) {
     res.render('index', { title: 'Express' });
@@ -22,3 +19,4 @@ router.route('/config')
 
 
 module.exports = router;
+

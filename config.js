@@ -4,12 +4,13 @@ var app = express();
 
 var config = {};
 
+config.title = 'loddg'
 config.zillow  = {
 	zwsid: "X1-ZWz1ffhguxhz4b_axb7v"
 }
 
 config.google = {
-	maps_api: "https://maps.googleapis.com/maps/api/js?key=AIzaSyD6n8Dbk3ap0Z9PkT-lTVa3V36xnGk5nuc",
+	maps_api:     "https://maps.googleapis.com/maps/api/js?key=AIzaSyD6n8Dbk3ap0Z9PkT-lTVa3V36xnGk5nuc",
 	maps_api_key: "AIzaSyD6n8Dbk3ap0Z9PkT-lTVa3V36xnGk5nuc"
 
 }
@@ -55,7 +56,6 @@ config.firebase = {
  	 test: "pk_test_ayXYkj8OIX1aHmrPncu1U3gZ"
 
  }
- //firebase.in
 
 
 	

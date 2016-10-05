@@ -1,7 +1,11 @@
 var mongoose   = require('mongoose');
+var cheerio    = require('cheerio');
+var request = require('request');
+var Schema = mongoose.Schema;
 
-var SchoolSchema   = new mongoose.Schema({
-    name: {type: String, required:true, unique: true},
+
+var schoolSchema   = new Schema({
+    name: String,
     url: String,
     address: String,
     latitude: String,
@@ -13,23 +17,59 @@ var SchoolSchema   = new mongoose.Schema({
     country: String,
     county:String,
     zip: String,
-    coordinates: String
+    coordinates: String,
+    pop: String
 });
 
 
-SchoolSchema.important = {
-      logo:  {
-        $exists: true,
-        $not: /Wikidata/
-       },
-      zip:{
-        $exists: true
-      }
-  }
+schoolSchema.virtual('wikipedia_url').get(function(){
+    return 'https://en.wikipedia.org/wiki/' + this.name.replace(/[^a-zA-Z0-9]/,"_")
+})
 
 
-// Keep this at bottom?
-var School = mongoose.model('School', SchoolSchema);
-School.findLegit = School.find(School.schema.important)
+schoolSchema.methods.tidify = function(cb) {
+    var w = 'https://en.wikipedia.org/wiki/' + this.name.replace(/[ ]+/,'_')
+
+    console.log(w)
+    
+    request( w , function(error, response, html){
+        console.log("Made request")
+        if(error)
+            console.log(error)
+        console.log("Still working")
+
+          var $ = cheerio.load(html);
+ 
+          
+          this.latitude  =  $(".latitude").first().text()
+          this.longitude =  $(".longitude").first().text()
+          this.logo      =  $(".infobox img").first().attr("src")
+
+          //this.save()
+          console.log("tidy ver" + this.logo)
+
+        }, cb)
+
+};
+
+
+schoolSchema.statics.findValid = function(cb){
+    return this.find(
+    {
+        logo:  {
+            $exists: true,
+            $not: /Wikidata/
+        },
+        zip: { $exists: true }
+    }, 
+
+    cb);
+}
+
+
+var School = mongoose.model('School', schoolSchema);
+
+
+
 
 module.exports = School;

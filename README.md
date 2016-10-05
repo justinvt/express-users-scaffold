@@ -1,5 +1,14 @@
 # API Endpoints
 
+## Installation Instructions
+
+This application was designed to be a shallow install.  Once you are in the express-users-scaffold
+
+'''bash
+npm install && npm start
+
+'''
+
 Each endpoint will have an associated http verb (GET, POST, PUT, DELETE), a list of accepted query params, and a description of functionality.  This API will comply with REST standards when possible.
 
 #### NOTE: For ALL endpoints

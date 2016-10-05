@@ -5,15 +5,53 @@ var app = express();
 var mongoose = require('mongoose');
 var School  = require('../models/school');
 
+ var _ = require('lodash');
+ var img = require('imagemagick');
+
+
+router.route('/tidify')
+/*
+  .get(function(req,res){
+    var regex = new RegExp(req.query.name, 'gi')
+    console.log(req.query)
+    var data = {}    
+
+    School.findOne(
+      {name:regex},
+      school.tidify,
+
+      school.save(function (err, updatedSchool) {
+            if (err) return handleError(err);
+            res.send(updatedSchool);
+          });
+
+       })
+
+      //console.log(school)
+    })
+    */
+//  })
+
+
+router.route('/test')
+
+  .get(function(req,res){
+    var data = {}    
+
+    School.find({},null,{sort:{name:1}},function(err, schools){
+      data.first =  schools[0].update_logo()
+      res.json(
+        _(schools).map(function(i){ return i.name.replace(/ - Link/,'')})
+      )
+    })
+  })
+
+
 
 router.route('/new')
 
   .get(function(req,res,next){
-    
-  //  var School = new School;
     res.render('schools/new');
-    //res.render("school.html")
-    
   })
 
 
@@ -23,15 +61,8 @@ router.route('/')
   .get(function(req, res, next) {
     //console.log(req.params);
 
-    School.find({
-      logo:  {
-        $exists: true,
-        $not: /Wikidata/
-       },
-      zip:{
-        $exists: true
-      }
-      },null,{sort:{name:1}},
+    School.find(
+      {},null,{sort:{name:1}},
       function(err, schools) {
       if(req.query.format === 'html')
         res.render('schools/index', { schools: schools });
@@ -67,6 +98,7 @@ router.route('/')
      
   });
 
+
 router.route('/by_name')
   
   .get(function(req, res) {
@@ -77,27 +109,11 @@ router.route('/by_name')
      School.find({
       name: regex
      }, function (err, schools) {
-
       if (err) return res.send(err);
       if(req.query.format === 'html')
         res.render('schools/index', { schools: schools });
       else
         res.json(schools)
-       /*
-      /*
-      res.format({
-        html: function(){
-          //res.render('schools/show', { school: school });
-           res.json({school:school});
-        },
-        text: function(){
-          res.render('schools/show', { school: school });
-        },
-        json: function(){
-          res.json({school:school});
-        }
-        */
-
     });
   })
   
@@ -112,21 +128,6 @@ router.route('/:school_id')
         res.render('schools/show', { school: school });
       else
         res.json(school)
-       /*
-      /*
-      res.format({
-        html: function(){
-          //res.render('schools/show', { school: school });
-           res.json({school:school});
-        },
-        text: function(){
-          res.render('schools/show', { school: school });
-        },
-        json: function(){
-          res.json({school:school});
-        }
-        */
-
   	});
   })
   
@@ -136,19 +137,18 @@ router.route('/:school_id')
       School.findById(req.params.school_id, function(err, school) {
 
           if (err) res.send(err);
-
           School.name = req.body.name;  // update the bears info
-
           // save the bear
           School.save(function(err) {
               if (err) res.send(err);
-
               res.json({ message: 'School updated!' });
           });
 
       });
   });
   
+
+
 
 
 module.exports = router;

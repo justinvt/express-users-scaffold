@@ -1,3 +1,7 @@
+// Seriously, DO NOT use this file if you aren't Justin.
+// I am not prepared to delete this, but these are the aboriginal scripts used to build/maintain the list of 
+// schools associated with loddg
+
 var express = require('express');
 var app = express();
 
@@ -28,16 +32,50 @@ var scrape_names = false;
 var scrape_details =0;
 var get_address =  0;
 var reverse_geocode = 1;
-
-
-
-
+var degenerate = 1;
 var mongoose   = require('mongoose');
 mongoose.connect(config.mongo.connection); // connect to our database
 var School = require('./models/school.js')
 
 // reverse geocode API
 
+if(degenerate){
+     School.find(function(err, schools) {
+        schools.forEach(function(school, index){
+          if(school.logo == "//upload.wikimedia.org/wikipedia/en/thumb/0/0c/Red_pog.svg/7px-Red_pog.svg.png"){
+            school.name = school.name.replace(/ - Link/,'')
+
+            request( school.wikipedia_url , function(error, response, html){
+           console.log("Made request")
+             if(error)
+            console.log(error)
+         console.log("Still working")
+
+          var $ = cheerio.load(html);
+ 
+          
+          school.latitude  =  $(".latitude").first().text()
+          school.longitude =  $(".longitude").first().text()
+          school.logo      =  $(".infobox img").first().attr("src")
+
+                  school.save(
+                    function(err) {
+                     if (err) throw err;
+                     console.log(school)
+                   })
+          console.log("tidy ver" + school.logo)
+
+        }, null)
+
+          }
+   
+       })
+  })
+  //upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Wikidata-logo.svg/30px-Wikidata-logo.svg.png
+
+}
+
+return false;
 
 if(reverse_geocode){
    School.find(function(err, schools) {

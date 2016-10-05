@@ -3,6 +3,8 @@ tr.school(id="school_" + school.id)
 	td.name= school.name
 	td.img
 		img("src"=school.logo)
+	td.wikipedia
+		a(href=school.wikipedia_url)= school.wikipedia_url
 	td.zip= school.zip
 	td.latitude= school.latitude
 	td.longitude= school.longitude

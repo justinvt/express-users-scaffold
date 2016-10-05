@@ -34,6 +34,14 @@ var users = require('./controllers/users');
 var schools = require('./controllers/schools');
 var properties = require('./controllers/properties');
 
+
+app.all('*', function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
+
 //routes
 app.use('/users', users);
 app.use('/schools', schools);
@@ -52,6 +60,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
 // catch 404 and forward to error handler
 
 app.use(function(req, res, next) {
@@ -104,6 +113,8 @@ passport.use(
         });
     }
 ));
+
+
 // error handlers
 
 // development error handler
