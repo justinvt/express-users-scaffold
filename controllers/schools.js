@@ -62,7 +62,7 @@ router.route('/')
     //console.log(req.params);
 
     School.find(
-      {},null,{sort:{name:1}},
+      {},'name logo zip',{sort:{name:1}},
       function(err, schools) {
       if(req.query.format === 'html')
         res.render('schools/index', { schools: schools });

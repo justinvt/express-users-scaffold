@@ -6,18 +6,18 @@ var Schema = mongoose.Schema;
 
 var schoolSchema   = new Schema({
     name: String,
-    url: String,
-    address: String,
-    latitude: String,
-    longitude: String,
+//    url: String,
+//    address: String,
+//    latitude: String,
+//    longitude: String,
     logo: String,
-    street: String,
-    city: String,
-    state: String,
-    country: String,
-    county:String,
+//    street: String,
+//    city: String,
+//    state: String,
+//    country: String,
+//    county:String,
     zip: String,
-    coordinates: String,
+//    coordinates: String,
     pop: String
 });
 
