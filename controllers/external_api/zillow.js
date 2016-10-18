@@ -23,10 +23,11 @@ module.exports.digest_zillow = function(req, res, next){
                                  address:         req.zillow_response.address[0],
                                  street:          req.zillow_response.address[0].street[0],
                                  citystatezip:    req.zillow_response.address[0].zipcode[0],
-                                 price:           req.zillow_response.zestimate[0]["amount"][0]["_"],
+                                 zestimate:       req.zillow_response.zestimate[0]["amount"][0]["_"],
                                  rentzestimate:   req.zillow_response.rentzestimate[0]["amount"][0]["_"]
                               }
 
+        //This is so bad --- needs a recursive flattener
        for (var key in  req.zillow_match) {
            req.zillow_match[key] =  req.zillow_match[key].length == 1 ?  req.zillow_match[key][0] :  req.zillow_match[key]
            for (var k in  req.zillow_match[key]){
