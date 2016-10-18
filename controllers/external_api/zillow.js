@@ -6,9 +6,11 @@ var zillow = new Zillow(config.zillow.zwsid);
 
 module.exports.digest_zillow = function(req, res, next){
    zillow
+
     .get('GetSearchResults', {  address:        req.query['street'], 
                                 citystatezip:   req.query['citystatezip'] ,
                                 rentzestimate: true        })
+
     .then(function(results){
       if(results.message.code != 0){
         req.error = results.message.code
@@ -16,6 +18,7 @@ module.exports.digest_zillow = function(req, res, next){
       }
       else{
         req.zillow_response = results.response.results.result[0]
+
         req.zillow_match    = {  zpid:            req.zillow_response.zpid[0],
                                  address:         req.zillow_response.address[0],
                                  street:          req.zillow_response.address[0].street[0],
@@ -23,6 +26,7 @@ module.exports.digest_zillow = function(req, res, next){
                                  price:           req.zillow_response.zestimate[0]["amount"][0]["_"],
                                  rentzestimate:   req.zillow_response.rentzestimate[0]["amount"][0]["_"]
                               }
+
        for (var key in  req.zillow_match) {
            req.zillow_match[key] =  req.zillow_match[key].length == 1 ?  req.zillow_match[key][0] :  req.zillow_match[key]
            for (var k in  req.zillow_match[key]){
