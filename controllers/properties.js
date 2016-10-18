@@ -13,12 +13,22 @@ router.route('/new.:format?')
 
   .get(  zillow_api.digest_zillow, // zillow_api.digest_zillow Defined in controller/external_api.js
          function(req,res){
-         // res.local.result = { property: req.zillow_match }
-           req.params.format == undefined ?
-             res.render('properties/new', { property: req.zillow_match }) :
-             res.json({ property: req.zillow_match })
+          if(req.params.format == undefined){
+
+            res.render('properties/new', { property: req.zillow_match })
+
           }
-    )
+          else{
+            console.log(req.error)
+            if(req.error)
+              res.status(req.error);
+
+            res.json({ property: req.zillow_match })
+
+          }
+
+        }
+)
 
 router.route('/search')
 

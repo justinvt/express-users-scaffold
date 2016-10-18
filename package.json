@@ -24,7 +24,6 @@
     "multer": "*",
     "node-phantom": "^0.2.5",
     "node-zillow": "^1.0.1",
-    "nodemon": "*",
     "passport": "0.3.2",
     "passport-http": "^0.3.0",
     "passport-local": "~1.0.0",
@@ -35,7 +34,9 @@
     "static-favicon": "^2.0.0-alpha"
   },
   "main": "app.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  },
   "author": "",
   "license": "ISC",
   "description": ""

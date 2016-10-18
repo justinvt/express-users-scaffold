@@ -16,7 +16,7 @@ Each endpoint will have an associated http verb (GET, POST, PUT, DELETE), a list
 The desired format of the response can always be requested with the <code>format</code> query param, in the following way
 
 ```
-SERVER_IP = 104.131.15.101:3000                   # At the time of writing this. Hopefully this is changed to easier to rememeber soon
+SERVER_IP = SERVER_IP:3000                   # At the time of writing this. Hopefully this is changed to easier to rememeber soon
 
 http://SERVER_IP/schools?format=html     # <format> will be default JSON {HTML,JSON} are the only options right now.
 http://SERVER_IP/schools                 # Since JSON is the default <format>, this will return <code>JSON</code>
